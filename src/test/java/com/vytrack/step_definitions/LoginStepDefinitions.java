@@ -15,7 +15,7 @@ public class LoginStepDefinitions {
     @Given("user is on the login page")
     public void user_is_on_the_login_page() {
         System.out.println("Open login page");
-        String URL = ConfigurationReader.getProperty("qa3");
+        String URL = ConfigurationReader.getProperty("qa2");
         Driver.getDriver().get(URL);
     }
 
@@ -36,18 +36,20 @@ public class LoginStepDefinitions {
         loginPage.login("user19", "UserUser123");
     }
 
-    @When("user enters {string} username and {string} password")
-    public void user_enters_username_and_password(String string, String string2) {
-        System.out.printf("Login with username %s and password %s\n", string, string2);
-        loginPage.login(string, string2);
-    }
-
     @Then("user should verify that title is Dashboard")
     public void user_should_verify_that_title_is_Dashboard() {
         System.out.println("Verify that title is Dashboard");
         BrowserUtils.waitForPageToLoad(10);
         BrowserUtils.wait(2);
         Assert.assertEquals("Dashboard", Driver.getDriver().getTitle());
+    }
+
+
+
+    @When("user enters {string} username and {string} password")
+    public void user_enters_username_and_password(String string, String string2) {
+        System.out.printf("Login with username %s and password %s\n", string, string2);
+        loginPage.login(string, string2);
     }
 
     @When("user navigates to {string} and {string}")

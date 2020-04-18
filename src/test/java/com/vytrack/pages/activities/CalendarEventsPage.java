@@ -5,6 +5,7 @@ import com.vytrack.utilities.BrowserUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
@@ -47,18 +48,17 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(xpath = "//label[text()='Description']/following-sibling::div//div")
     private WebElement generalInfoDescription;
 
-    public void enterCalendarEventTitle(String titleValue){
+    public void enterCalendarEventTitle(String titleValue) {
         BrowserUtils.waitForPageToLoad(25);
         wait.until(ExpectedConditions.visibilityOf(title)).sendKeys(titleValue);
-        BrowserUtils.wait(2);
+        wait.until(ExpectedConditions.attributeToBe(title, "value", titleValue));
     }
-
-    public void enterCalendarEventDescription(String description){
-        BrowserUtils.waitForPageToLoad(25);
+    public void enterCalendarEventDescription(String description) {
+        //wait until frame is available and switch to it
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(descriptionFrame));
         descriptionTextArea.sendKeys(description);
+        wait.until(ExpectedConditions.textToBePresentInElement(descriptionTextArea, description));
         driver.switchTo().defaultContent();//exit from the frame
-        BrowserUtils.wait(2);
     }
 
     public void clickOnSaveAndClose(){
