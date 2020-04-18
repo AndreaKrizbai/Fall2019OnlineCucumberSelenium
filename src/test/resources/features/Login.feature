@@ -5,7 +5,7 @@ Feature: Login
   # Test Method = Test Case = Scenario
   # Test + DataProvider = Scenario Outline + Examples table
 
-  Background:
+  Background: open login page
     Given user is on the login page
 
   @sales_manager
@@ -22,3 +22,8 @@ Feature: Login
   Scenario: Login as a driver and verify that title is Dashboard
     When user logs in as a driver
     Then user should verify that title is Dashboard
+
+    @login_with_params
+    Scenario: Login with parameters
+      When user enters "salesmanager115" username and "UserUser123" password
+      Then user should verify that title is Dashboard
