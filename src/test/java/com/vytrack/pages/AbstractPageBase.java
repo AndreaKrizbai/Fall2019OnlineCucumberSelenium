@@ -20,8 +20,16 @@ public abstract class AbstractPageBase {
     @FindBy(css = "#user-menu > a")
     protected WebElement currentUser;
 
+    @FindBy(css = "[class='btn-group pull-right'] > button")
+    private WebElement saveAndClose;
+
     public AbstractPageBase(){
         PageFactory.initElements(driver, this);
+    }
+
+    public void clickOnSaveAndClose(){
+        BrowserUtils.waitForPageToLoad(25);
+        wait.until(ExpectedConditions.elementToBeClickable(saveAndClose)).click();
     }
 
     public String getCurrentUserName(){
