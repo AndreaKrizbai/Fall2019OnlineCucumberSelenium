@@ -5,7 +5,6 @@ import com.vytrack.utilities.BrowserUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
@@ -47,6 +46,15 @@ public class CalendarEventsPage extends AbstractPageBase {
 
     @FindBy(xpath = "//label[text()='Description']/following-sibling::div//div")
     private WebElement generalInfoDescription;
+
+    @FindBy(xpath = "//*[contains(text(),'View per page:')]/following-sibling::*//a")
+    private List<WebElement> viewPerPageElements;
+
+    public List<String> getViewPerPageOptions() {
+        BrowserUtils.waitForPageToLoad(25);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title='Create Calendar event']")));
+        return BrowserUtils.getTextFromWebElements(viewPerPageElements);
+    }
 
     public void enterCalendarEventTitle(String titleValue) {
         BrowserUtils.waitForPageToLoad(25);
